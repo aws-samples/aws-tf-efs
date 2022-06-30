@@ -41,7 +41,7 @@ The solution has following features:
 - The AWS User/Role executing the Terraform scripts must have permissions to provision the target resources in the owner account.
 - The Terraform CLI (`version = ">= 1.1.9"`) is installed.
 - Terraform backend provider and state locking providers are identified and bootstrapped.
-  - An [example bootstrap](./bootstrap) module/example is provided that provisions an Amazon S3 bucket for Terraform state storage and Amazon DynamoDB table for Terraform state locking.
+  - An [example bootstrap](https://github.com/aws-samples/aws-tf-efs/tree/main/bootstrap) module/example is provided that provisions an Amazon S3 bucket for Terraform state storage and Amazon DynamoDB table for Terraform state locking.
     - The Amazon S3 bucket name must be globally unique.
 - A unique project code name e.g., `appx` is identified that will be used to uniformly name the key aliases.
 - Uniform resource tagging scheme is identified.
@@ -62,7 +62,7 @@ This is the most common scenario. The lifecycle of Amazon EFS and Amazon EFS Acc
 
 #### Prerequisites
 
-<p align="center"><img src="images/aws-tf-efs-Scenario-1p.png" width="50%"/></p>
+<p align="center"><img src="images/aws-tf-efs-Scenario-1p.png" width="60%"/></p>
 
 - The target VPC along with the target Subnets exist and identified via Tags.
 - EFS file system does not exist.
@@ -73,7 +73,7 @@ This is the most common scenario. The lifecycle of Amazon EFS and Amazon EFS Acc
 
 #### Outcome
 
-<p align="center"><img src="images/aws-tf-efs-Scenario-1o.png" width="50%"/></p>
+<p align="center"><img src="images/aws-tf-efs-Scenario-1o.png" width="60%"/></p>
 
 - EFS file system is created.
 - EFS Security Group is created with default rules.
@@ -82,7 +82,7 @@ This is the most common scenario. The lifecycle of Amazon EFS and Amazon EFS Acc
 - EFS access point is created.
 - Standardized EFS resource policy is created.
 
-Refer [examples/efs/scenario1](./examples/efs/scenario1/) to execute this scenario.
+Refer [examples/efs/scenario1](https://github.com/aws-samples/aws-tf-efs/tree/main/examples/efs/scenario1/) to execute this scenario.
 
 ### Scenario 2:  Create Shared Amazon EFS with Mount Target(s)
 In this scenario the lifecycle of a shared Amazon EFS and mount target(s) is owned by a centralized team. It creates a shared Amazon EFS, on which one or more application teams can create their own EFS access point(s).
@@ -109,7 +109,7 @@ In this scenario the lifecycle of a shared Amazon EFS and mount target(s) is own
 - Standardized EFS resource policy is created.
 - No EFS access points are created.
 
-Refer [examples/efs/scenario2](./examples/efs/scenario2/) to execute this scenario. This is required step for [examples/efs/scenario3](./examples/efs/scenario3/)
+Refer [examples/efs/scenario2](https://github.com/aws-samples/aws-tf-efs/tree/main/examples/efs/scenario2/) to execute this scenario. This is required step for [examples/efs/scenario3](https://github.com/aws-samples/aws-tf-efs/tree/main/examples/efs/scenario3/)
 
 ### Scenario 3: Create Owned EFS Access Point(s) on an existing Shared Amazon EFS
 In this scenario the lifecycle of Amazon EFS Access Point(s) is owned by the application team. It creates EFS access point(s) on an existing EFS (identified via `efs_id`) created by the centralized team.
@@ -132,7 +132,7 @@ In this scenario the lifecycle of Amazon EFS Access Point(s) is owned by the app
 - EFS access point is created.
 - Standardized EFS resource policy is updated.
 
-Refer [examples/efs/scenario3](./examples/efs/scenario3/) to execute this scenario. The [examples/efs/scenario2](./examples/efs/scenario2/) must be executed before executing this scenario.
+Refer [examples/efs/scenario3](https://github.com/aws-samples/aws-tf-efs/tree/main/examples/efs/scenario3/) to execute this scenario. The [examples/efs/scenario2](https://github.com/aws-samples/aws-tf-efs/tree/main/examples/efs/scenario2/) must be executed before executing this scenario.
 
 *Note: Do not use `terraform destroy` to remove EFS access point(s) from shared EFS, as this will remove the EFS resource policy. Use `efs_access_point_specs` variable to remove any unwanted access point(s).*
 
@@ -172,7 +172,7 @@ This scenario demonstrates the Amazon EFS file system replication. The Amazon EF
 - EFS access point(s) are created in the `replica_region`.
 - Standardized EFS resource policy is created in the `replica_region`
 
-Refer [examples/efs/scenario4](./examples/efs/scenario4/) to execute this scenario.
+Refer [examples/efs/scenario4](https://github.com/aws-samples/aws-tf-efs/tree/main/examples/efs/scenario4/) to execute this scenario.
 
 *Note: When this scenario is destroyed the EFS file system in the `replica_region` becomes disconnected. For clean-up it must be manually destroyed.*
 
@@ -182,8 +182,8 @@ Refer [examples/efs/scenario4](./examples/efs/scenario4/) to execute this scenar
 
 ## Security
 
-See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+See [CONTRIBUTING](https://github.com/aws-samples/aws-tf-efs/blob/main/CONTRIBUTING.md#security-issue-notifications) for more information.
 
 ## License
 
-This library is licensed under the MIT-0 License. See the [LICENSE](LICENSE) file.
+This library is licensed under the MIT-0 License. See the [LICENSE](https://github.com/aws-samples/aws-tf-efs/blob/main/LICENSE) file.
