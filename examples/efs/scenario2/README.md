@@ -20,7 +20,7 @@ In this scenario the lifecycle of a shared Amazon EFS and mount point(s) is owne
 
 ## Outcome
 
-<p align="center"><img src="../../../images/aws-tf-efs-Scenario-1o.png" width="60%"/></p>
+<p align="center"><img src="../../../images/aws-tf-efs-Scenario-2o.png" width="60%"/></p>
 
 - EFS file system is created.
 - EFS Security Group is created with default rules.
