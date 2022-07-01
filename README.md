@@ -39,7 +39,9 @@ The solution has following features:
 
 - The target AWS Account(s) and AWS Region(s) are identified.
 - The AWS User/Role executing the Terraform scripts must have permissions to provision the target resources in the owner account.
-- The Terraform CLI (`version = ">= 1.1.9"`) is installed.
+- The [Terraform CLI](https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/aws-get-started) (`version = ">= 1.1.9"`) is installed.
+- The [Python 3.9+](https://www.python.org/downloads/) is installed.
+- AWS SDK for Python [boto3 1.24+](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html#installation) is installed.
 - Terraform backend provider and state locking providers are identified and bootstrapped.
   - An [example bootstrap](./bootstrap) module/example is provided that provisions an Amazon S3 bucket for Terraform state storage and Amazon DynamoDB table for Terraform state locking.
     - The Amazon S3 bucket name must be globally unique.
@@ -62,7 +64,7 @@ This is the most common scenario. The lifecycle of Amazon EFS and Amazon EFS Acc
 
 #### Prerequisites
 
-<p align="center"><img src="images/aws-tf-efs-Scenario-1p.png" width="50%"/></p>
+<p align="center"><img src="images/aws-tf-efs-Scenario-1p.png" width="60%"/></p>
 
 - The target VPC along with the target Subnets exist and identified via Tags.
 - EFS file system does not exist.
@@ -73,7 +75,7 @@ This is the most common scenario. The lifecycle of Amazon EFS and Amazon EFS Acc
 
 #### Outcome
 
-<p align="center"><img src="images/aws-tf-efs-Scenario-1o.png" width="50%"/></p>
+<p align="center"><img src="images/aws-tf-efs-Scenario-1o.png" width="60%"/></p>
 
 - EFS file system is created.
 - EFS Security Group is created with default rules.

@@ -39,7 +39,9 @@ The solution has following features:
 
 - The target AWS Account(s) and AWS Region(s) are identified.
 - The AWS User/Role executing the Terraform scripts must have permissions to provision the target resources in the owner account.
-- The Terraform CLI (`version = ">= 1.1.9"`) is installed.
+- The [Terraform CLI](https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/aws-get-started) (`version = ">= 1.1.9"`) is installed.
+- The [Python 3.9+](https://www.python.org/downloads/) is installed.
+- AWS SDK for Python [boto3 1.24+](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html#installation) is installed.
 - Terraform backend provider and state locking providers are identified and bootstrapped.
   - An [example bootstrap](https://github.com/aws-samples/aws-tf-efs/tree/main/bootstrap) module/example is provided that provisions an Amazon S3 bucket for Terraform state storage and Amazon DynamoDB table for Terraform state locking.
     - The Amazon S3 bucket name must be globally unique.
@@ -62,7 +64,7 @@ This is the most common scenario. The lifecycle of Amazon EFS and Amazon EFS Acc
 
 #### Prerequisites
 
-<p align="center"><img src="images/aws-tf-efs-Scenario-1p.png" width="60%"/></p>
+<p align="center"><img src="images/aws-tf-efs-Scenario-1p.png" width="75%"/></p>
 
 - The target VPC along with the target Subnets exist and identified via Tags.
 - EFS file system does not exist.
@@ -73,7 +75,7 @@ This is the most common scenario. The lifecycle of Amazon EFS and Amazon EFS Acc
 
 #### Outcome
 
-<p align="center"><img src="images/aws-tf-efs-Scenario-1o.png" width="60%"/></p>
+<p align="center"><img src="images/aws-tf-efs-Scenario-1o.png" width="75%"/></p>
 
 - EFS file system is created.
 - EFS Security Group is created with default rules.
@@ -84,12 +86,14 @@ This is the most common scenario. The lifecycle of Amazon EFS and Amazon EFS Acc
 
 Refer [examples/efs/scenario1](https://github.com/aws-samples/aws-tf-efs/tree/main/examples/efs/scenario1/) to execute this scenario.
 
+<div style="page-break-after: always;"></div>
+
 ### Scenario 2:  Create Shared Amazon EFS with Mount Target(s)
 In this scenario the lifecycle of a shared Amazon EFS and mount target(s) is owned by a centralized team. It creates a shared Amazon EFS, on which one or more application teams can create their own EFS access point(s).
 
 #### Prerequisites
 
-<p align="center"><img src="images/aws-tf-efs-Scenario-2p.png" width="60%"/></p>
+<p align="center"><img src="images/aws-tf-efs-Scenario-2p.png" width="75%"/></p>
 
 - The target VPC along with the target Subnets exist and identified via Tags.
 - EFS file system does not exist.
@@ -98,9 +102,11 @@ In this scenario the lifecycle of a shared Amazon EFS and mount target(s) is own
 - AWS KMS Key does not exist.
 - EFS access point does not exist.
 
+<div style="page-break-after: always;"></div>
+
 #### Outcome
 
-<p align="center"><img src="images/aws-tf-efs-Scenario-2o.png" width="60%"/></p>
+<p align="center"><img src="images/aws-tf-efs-Scenario-2o.png" width="75%"/></p>
 
 - EFS file system is created.
 - EFS Security Group is created with default rules.
@@ -111,12 +117,14 @@ In this scenario the lifecycle of a shared Amazon EFS and mount target(s) is own
 
 Refer [examples/efs/scenario2](https://github.com/aws-samples/aws-tf-efs/tree/main/examples/efs/scenario2/) to execute this scenario. This is required step for [examples/efs/scenario3](https://github.com/aws-samples/aws-tf-efs/tree/main/examples/efs/scenario3/)
 
+<div style="page-break-after: always;"></div>
+
 ### Scenario 3: Create Owned EFS Access Point(s) on an existing Shared Amazon EFS
 In this scenario the lifecycle of Amazon EFS Access Point(s) is owned by the application team. It creates EFS access point(s) on an existing EFS (identified via `efs_id`) created by the centralized team.
 
 #### Prerequisites
 
-<p align="center"><img src="images/aws-tf-efs-Scenario-3p.png" width="60%"/></p>
+<p align="center"><img src="images/aws-tf-efs-Scenario-3p.png" width="75%"/></p>
 
 - The target VPC along with the target Subnets exist and identified via Tags.
 - EFS file system exist and identified via `efs_id`
@@ -125,9 +133,11 @@ In this scenario the lifecycle of Amazon EFS Access Point(s) is owned by the app
 - AWS KMS Key exists and encrypts the EFS file system.
 - The required EFS access point does not exist.
 
+<div style="page-break-after: always;"></div>
+
 #### Outcome
 
-<p align="center"><img src="images/aws-tf-efs-Scenario-3o.png" width="60%"/></p>
+<p align="center"><img src="images/aws-tf-efs-Scenario-3o.png" width="75%"/></p>
 
 - EFS access point is created.
 - Standardized EFS resource policy is updated.
@@ -135,6 +145,8 @@ In this scenario the lifecycle of Amazon EFS Access Point(s) is owned by the app
 Refer [examples/efs/scenario3](https://github.com/aws-samples/aws-tf-efs/tree/main/examples/efs/scenario3/) to execute this scenario. The [examples/efs/scenario2](https://github.com/aws-samples/aws-tf-efs/tree/main/examples/efs/scenario2/) must be executed before executing this scenario.
 
 *Note: Do not use `terraform destroy` to remove EFS access point(s) from shared EFS, as this will remove the EFS resource policy. Use `efs_access_point_specs` variable to remove any unwanted access point(s).*
+
+<div style="page-break-after: always;"></div>
 
 ### Scenario 4: Create Amazon EFS and Amazon EFS Access Point(s) with replication enabled to another region
 This scenario demonstrates the Amazon EFS file system replication. The Amazon EFS file system can be replicated to the same or another AWS Region. The replicated file system just replicates the storage. It does not create the mount target(s) or replicate the access point(s). This solution not only replicates the Amazon EFS file system but also creates the specified mount targets and access points(s).
@@ -154,6 +166,8 @@ This scenario demonstrates the Amazon EFS file system replication. The Amazon EF
 - EFS Security Group does not exist in the `replica_region`.
 - EFS mount targets do not exist in the target VPC Subnets in the `replica_region`.
 - EFS access point does not exist in the `replica_region`.
+
+<div style="page-break-after: always;"></div>
 
 #### Outcome
 
