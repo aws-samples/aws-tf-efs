@@ -46,5 +46,27 @@ efs_access_point_specs = [
     owner_gid       = 0
     root_permission = "0755"
     principal_arns  = ["*"] //["<list-of-role-arns>"]
-  }
+  },
+  # {
+  #   efs_ap          = "efs-scenario1-ap2"
+  #   uid             = 0
+  #   gid             = 0
+  #   secondary_gids  = []
+  #   root_path       = "/dev/efs/scenario1/efs_scenario1_ap2"
+  #   owner_uid       = 0
+  #   owner_gid       = 0
+  #   root_permission = "0755"
+  #   principal_arns  = ["*"] //["<list-of-role-arns>"]
+  # },
+  # {
+  #   efs_ap          = "efs-scenario1-ap3"
+  #   uid             = 0
+  #   gid             = 0
+  #   secondary_gids  = []
+  #   root_path       = "/dev/efs/scenario1/efs_scenario1_ap3"
+  #   owner_uid       = 0
+  #   owner_gid       = 0
+  #   root_permission = "0755"
+  #   principal_arns  = ["*"] //["<list-of-role-arns>"]
+  # }
 ]

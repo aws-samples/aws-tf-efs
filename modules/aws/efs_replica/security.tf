@@ -28,6 +28,8 @@ resource "aws_security_group" "efs_sg" {
 resource "aws_security_group_rule" "egress_efs_sg" {
   count = var.security_group_tags == null ? 1 : 0
 
+  provider = aws.replica
+
   description       = "Allow egress to all from EFS"
   type              = "egress"
   from_port         = 0

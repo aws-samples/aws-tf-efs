@@ -75,9 +75,14 @@ resource "aws_efs_access_point" "efs_ap" {
 data "external" "efs_policy" {
   program = ["python", "${path.module}/scripts/get_efs_policy.py"]
   query = {
+    efs_name       = var.efs_name
     file_system_id = local.efs.id
     aws_region     = var.replica_region
   }
+
+  depends_on = [
+    aws_efs_access_point.efs_ap
+  ]
 }
 
 #efs resource policy

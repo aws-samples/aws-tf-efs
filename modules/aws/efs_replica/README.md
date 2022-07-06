@@ -11,7 +11,6 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.19.0 |
 | <a name="provider_aws.primary"></a> [aws.primary](#provider\_aws.primary) | 4.19.0 |
 | <a name="provider_aws.replica"></a> [aws.replica](#provider\_aws.replica) | 4.19.0 |
 | <a name="provider_external"></a> [external](#provider\_external) | 2.2.2 |
