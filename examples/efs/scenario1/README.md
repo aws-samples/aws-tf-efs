@@ -7,8 +7,9 @@ This is the most common scenario. The lifecycle of Amazon EFS and Amazon EFS Acc
 <p align="center"><img src="../../../images/aws-tf-efs-Scenario-1p.png" width="60%"/></p>
 
 - Terraform backend provider and state locking providers are identified and bootstrapped.
-  - An [example bootstrap](../../../bootstrap) module/example is provided that provisions Amazon S3 for Terraform state storage and Amazon DynamoDB for Terraform state locking.
+  - A [bootstrap](../../../bootstrap) module/example is provided that provisions Amazon S3 for Terraform state storage and Amazon DynamoDB for Terraform state locking.
 - The target VPC along with the target Subnets exist and are identified via Tags.
+  - A [vpc](../../../vpc) example is provided that provisions VPC, Subnets and related resources with example tagging.
   - The example uses the following tags to identify the target VPC and Subnets.
     ```text
     "efs/scenario" = "1"

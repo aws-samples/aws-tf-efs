@@ -43,8 +43,10 @@ The solution has following features:
 - The [Python 3.9+](https://www.python.org/downloads/) is installed.
 - AWS SDK for Python [boto3 1.24+](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html#installation) is installed.
 - Terraform backend provider and state locking providers are identified and bootstrapped.
-  - An [example bootstrap](https://github.com/aws-samples/aws-tf-efs/tree/main/bootstrap) module/example is provided that provisions an Amazon S3 bucket for Terraform state storage and Amazon DynamoDB table for Terraform state locking.
+  - A [bootstrap](https://github.com/aws-samples/aws-tf-efs/tree/main/bootstrap) module/example is provided that provisions an Amazon S3 bucket for Terraform state storage and Amazon DynamoDB table for Terraform state locking.
     - The Amazon S3 bucket name must be globally unique.
+- The target VPC along with the target Subnets exist and are identified via Tags.
+  - A [vpc](https://github.com/aws-samples/aws-tf-efs/tree/main/vpc) example is provided that provisions VPC, Subnets and related resources with example tagging.
 - A unique project code name e.g., `appx` is identified that will be used to uniformly name the key aliases.
 - Uniform resource tagging scheme is identified.
   - The examples use only two tags: `Env` and `Project`
@@ -54,6 +56,8 @@ The solution has following features:
 - Use the module via [GitHub source](https://www.terraform.io/language/modules/sources#github) or copy the module into your repository.
 - Incorporate the module in your infrastructure/storage [CI](https://aws.amazon.com/devops/continuous-integration/)/[CD](https://aws.amazon.com/devops/continuous-delivery/) [pipeline](https://docs.aws.amazon.com/codepipeline/latest/userguide/concepts.html) as appropriate.
 - This solution uses [external module](https://github.com/aws-samples/aws-tf-kms) to provision AWS KMS Key, if encryption is enabled and `kms_alias` is not provided.
+
+<div style="page-break-after: always;"></div>
 
 ## Scenarios
 
@@ -72,6 +76,8 @@ This is the most common scenario. The lifecycle of Amazon EFS and Amazon EFS Acc
 - EFS mount targets do not exist in the target VPC Subnets.
 - AWS KMS Key does not exist.
 - EFS access point does not exist.
+
+<div style="page-break-after: always;"></div>
 
 #### Outcome
 
@@ -189,6 +195,8 @@ This scenario demonstrates the Amazon EFS file system replication. The Amazon EF
 Refer [examples/efs/scenario4](https://github.com/aws-samples/aws-tf-efs/tree/main/examples/efs/scenario4/) to execute this scenario.
 
 *Note: When this scenario is destroyed the EFS file system in the `replica_region` becomes disconnected. For clean-up it must be manually destroyed.*
+
+<div style="page-break-after: always;"></div>
 
 ## Future Enhancements
 
