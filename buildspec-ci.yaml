@@ -1,0 +1,103 @@
+version: 0.2
+
+env:
+  variables:
+    TERRAFORM_VERSION: 1.1.9
+    TFLINT_VERSION: 0.38.1
+    TERRAFORM_DOCS_VERSION: 0.16.0
+    TFSEC_VERSION: 1.26.3
+phases:
+  install:
+    commands:
+      - echo "Installing terraform..."
+      - cd
+      - curl -O https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+      - unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+      - chmod +x terraform
+      - install -c -v ./terraform /usr/local/bin
+      - terraform --version
+      - echo "Completed installing terraform..."
+
+      - echo "Installing TFLint..."
+      - cd
+      - curl -Lo ./tflint.zip https://github.com/terraform-linters/tflint/releases/download/v${TFLINT_VERSION}/tflint_linux_amd64.zip
+      - unzip tflint.zip
+      - chmod +x tflint
+      - install -c -v ./tflint /usr/local/bin
+      - tflint --version
+      - echo "Completed installing TFLint..."
+
+      - echo "Installing terraform-docs..."
+      - cd
+      - curl -Lo ./terraform-docs.tar.gz https://github.com/terraform-docs/terraform-docs/releases/download/v${TERRAFORM_DOCS_VERSION}/terraform-docs-v${TERRAFORM_DOCS_VERSION}-$(uname)-amd64.tar.gz
+      - tar -xzf terraform-docs.tar.gz
+      - chmod +x terraform-docs
+      - install -c -v ./terraform-docs /usr/local/bin
+      - terraform-docs --version
+      - echo "Completed installing terraform-docs..."
+
+      - echo "Installing tfsec..."
+      - cd
+      - curl -Lo ./tfsec.tar.gz https://github.com/aquasecurity/tfsec/releases/download/v${TFSEC_VERSION}/tfsec_${TFSEC_VERSION}_linux_amd64.tar.gz
+      - tar -xzf tfsec.tar.gz
+      - chmod +x tfsec
+      - install -c -v ./tfsec /usr/local/bin
+      - tfsec --version
+      - echo "Completed installing tfsec..."
+
+      - echo "Installing checkov..."
+      - cd
+      - pip install checkov
+      - checkov -v
+      - echo "Completed installing checkov..."
+      - echo "Installing pre-commit..."
+
+      - cd
+      - pip install pre-commit
+      - pre-commit --version
+      - echo "Completed installing pre-commit..."
+  pre_build:
+    commands:
+      - echo "Executing terraform init in all folders..."
+      - cd "${CODEBUILD_SRC_DIR}"
+      - pwd
+      - aws sts get-caller-identity
+
+      - cd "${CODEBUILD_SRC_DIR}/bootstrap"
+      - terraform init
+
+      - cd "${CODEBUILD_SRC_DIR}/vpc"
+      - terraform init
+
+      - cd "${CODEBUILD_SRC_DIR}/examples/efs/scenario1"
+      - terraform init
+
+      - cd "${CODEBUILD_SRC_DIR}/examples/efs/scenario2"
+      - terraform init
+
+      - cd "${CODEBUILD_SRC_DIR}/examples/efs/scenario3"
+      - terraform init
+
+      - cd "${CODEBUILD_SRC_DIR}/examples/efs/scenario4"
+      - terraform init
+
+      - cd "${CODEBUILD_SRC_DIR}/modules/aws/bootstrap"
+      - terraform init
+
+      - cd "${CODEBUILD_SRC_DIR}/modules/aws/efs"
+      - terraform init
+
+      - cd "${CODEBUILD_SRC_DIR}/modules/aws/efs_replica"
+      - terraform init
+
+      - echo "Completed executing terraform init in all folders..."
+  build:
+    commands:
+      - echo "Executing Terraform Code Scan..."
+      - cd "${CODEBUILD_SRC_DIR}"
+      - tflint --init
+      - pre-commit run -a
+
+  post_build:
+    commands:
+      - echo "[Post Build]:Completed Terraform Code Scan..."
